@@ -14,8 +14,8 @@
   home.packages = with pkgs; [
     gcc          # tree-sitter compiles parsers with a C compiler
     gnumake
-    ripgrep      # telescope live-grep
-    fd           # telescope find_files
+    ripgrep      # snacks.picker grep
+    fd           # snacks.picker files
     nodejs       # many LSP servers / Mason-installed tools
     nerd-fonts.jetbrains-mono   # if your config expects glyphs
   ];

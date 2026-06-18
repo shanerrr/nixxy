@@ -6,37 +6,24 @@ return {
 			require("mini.surround").setup()
 			require("mini.pairs").setup()
 			require("mini.move").setup()
-			require("mini.comment").setup({
-				mappings = {
-					comment = "<C-/>",
-					comment_line = "<C-/>",
-					comment_visual = "<C-/>",
-					textobject = "<C-/>",
-				},
-			})
+			require("mini.icons").setup()
 		end,
 	},
 	{
 		"folke/persistence.nvim",
-		event = "BufReadPre", -- this will only start session saving when an actual file was opened
+		event = "BufReadPre",
 		opts = {},
 	},
 	{
 		"folke/snacks.nvim",
 		priority = 1000,
 		lazy = false,
-		dependencies = {
-			"nvim-tree/nvim-web-devicons",
-		},
-		---@type snacks.Config
 		opts = {
 			lazygit = {
 				configure = true,
 				config = {
 					os = { editPreset = "nvim-remote" },
-					gui = {
-						nerdFontsVersion = "3",
-					},
+					gui = { nerdFontsVersion = "3" },
 				},
 				theme = {
 					[241] = { fg = "Special" },
@@ -47,12 +34,10 @@ return {
 					inactiveBorderColor = { fg = "FloatBorder" },
 					optionsTextColor = { fg = "Function" },
 					searchingActiveBorderColor = { fg = "MatchParen", bold = true },
-					selectedLineBgColor = { bg = "Visual" }, -- set to `default` to have no background colour
+					selectedLineBgColor = { bg = "Visual" },
 					unstagedChangesColor = { fg = "DiagnosticError" },
 				},
-				win = {
-					style = "lazygit",
-				},
+				win = { style = "lazygit" },
 			},
 			explorer = {
 				enabled = true,
@@ -74,9 +59,7 @@ return {
 					},
 				},
 				formatters = {
-					file = {
-						filename_first = true,
-					},
+					file = { filename_first = true },
 				},
 			},
 			notifier = { enabled = true },
@@ -87,139 +70,44 @@ return {
 			words = { enabled = true },
 			dashboard = {
 				preset = {
-					pick = nil,
-					---@type snacks.dashboard.Item[]
 					keys = {
-						{
-							icon = " ",
-							key = "f",
-							desc = "Find File",
-							action = ":lua Snacks.dashboard.pick('files')",
-						},
-						{ icon = " ", key = "n", desc = "New File", action = ":ene | startinsert" },
-						{
-							icon = " ",
-							key = "g",
-							desc = "Find Text",
-							action = ":lua Snacks.dashboard.pick('live_grep')",
-						},
-						{
-							icon = " ",
-							key = "r",
-							desc = "Recent Files",
-							action = ":lua Snacks.dashboard.pick('oldfiles')",
-						},
-						{
-							icon = " ",
-							key = "c",
-							desc = "Config",
-							action = ":lua Snacks.dashboard.pick('files', {cwd = vim.fn.stdpath('config')})",
-						},
-						{
-							icon = " ",
-							key = "s",
-							desc = "Restore Session",
-							action = function()
-								require("persistence").load()
-							end,
-						},
-						{
-							icon = "󰒲 ",
-							key = "l",
-							desc = "Lazy",
-							action = ":Lazy",
-							enabled = package.loaded.lazy ~= nil,
-						},
-						{ icon = " ", key = "q", desc = "Quit", action = ":qa" },
+						{ icon = " ", key = "f", desc = "Find File", action = ":lua Snacks.dashboard.pick('files')" },
+						{ icon = " ", key = "n", desc = "New File", action = ":ene | startinsert" },
+						{ icon = " ", key = "g", desc = "Find Text", action = ":lua Snacks.dashboard.pick('live_grep')" },
+						{ icon = " ", key = "r", desc = "Recent Files", action = ":lua Snacks.dashboard.pick('oldfiles')" },
+						{ icon = " ", key = "c", desc = "Config", action = ":lua Snacks.dashboard.pick('files', {cwd = vim.fn.stdpath('config')})" },
+						{ icon = " ", key = "s", desc = "Restore Session", action = function() require("persistence").load() end },
+						{ icon = "󰒲 ", key = "l", desc = "Lazy", action = ":Lazy", enabled = package.loaded.lazy ~= nil },
+						{ icon = " ", key = "q", desc = "Quit", action = ":qa" },
 					},
 					header = [[
-                                                                             
-               ████ ██████           █████      ██                     
-              ███████████             █████                             
-              █████████ ███████████████████ ███   ███████████   
-             █████████  ███    █████████████ █████ ██████████████   
-            █████████ ██████████ █████████ █████ █████ ████ █████   
-          ███████████ ███    ███ █████████ █████ █████ ████ █████  
-         ██████  █████████████████████ ████ █████ █████ ████ ██████ 
+
+               ████ ██████           █████      ██
+              ███████████             █████
+              █████████ ███████████████████ ███   ███████████
+             █████████  ███    █████████████ █████ ██████████████
+            █████████ ██████████ █████████ █████ █████ ████ █████
+          ███████████ ███    ███ █████████ █████ █████ ████ █████
+         ██████  █████████████████████ ████ █████ █████ ████ ██████
          ]],
 				},
 				sections = {
 					{ section = "header" },
-					{
-						section = "keys",
-						indent = 1,
-						padding = 1,
-					},
-					{ section = "recent_files", icon = " ", title = "Recent Files", indent = 3, padding = 2 },
+					{ section = "keys", indent = 1, padding = 1 },
+					{ section = "recent_files", icon = " ", title = "Recent Files", indent = 3, padding = 2 },
 					{ section = "startup" },
 				},
 			},
 		},
 		keys = {
-			{
-				"<C-b>",
-				function()
-					Snacks.explorer.open()
-				end,
-				desc = "Open explorer",
-				mode = "n",
-			},
-			{
-				"<leader>bd",
-				function()
-					Snacks.bufdelete()
-				end,
-				desc = "Buffer delete",
-				mode = "n",
-			},
-			{
-				"<leader>ba",
-				function()
-					Snacks.bufdelete.all()
-				end,
-				desc = "Buffer delete all",
-				mode = "n",
-			},
-			{
-				"<leader>bo",
-				function()
-					Snacks.bufdelete.other()
-				end,
-				desc = "Buffer delete other",
-				mode = "n",
-			},
-			{
-				"<leader>ff",
-				function()
-					Snacks.picker("files")
-				end,
-				desc = "Pick Files",
-				mode = "n",
-			},
-			{
-				"<leader>fb",
-				function()
-					Snacks.picker("buffers")
-				end,
-				desc = "Pick Buffers",
-				mode = "n",
-			},
-			{
-				"<leader>fg",
-				function()
-					Snacks.picker("grep")
-				end,
-				desc = "Live Grep",
-				mode = "n",
-			},
-			{
-				"<C-g>",
-				function()
-					Snacks.lazygit.open()
-				end,
-				desc = "Lazy Git (cwd)",
-				mode = "n",
-			},
+			{ "<C-b>", function() Snacks.explorer.open() end, desc = "Open explorer" },
+			{ "<leader>bd", function() Snacks.bufdelete() end, desc = "Buffer delete" },
+			{ "<leader>ba", function() Snacks.bufdelete.all() end, desc = "Buffer delete all" },
+			{ "<leader>bo", function() Snacks.bufdelete.other() end, desc = "Buffer delete other" },
+			{ "<leader>ff", function() Snacks.picker("files") end, desc = "Pick Files" },
+			{ "<leader>fb", function() Snacks.picker("buffers") end, desc = "Pick Buffers" },
+			{ "<leader>fg", function() Snacks.picker("grep") end, desc = "Live Grep" },
+			{ "<C-g>", function() Snacks.lazygit.open() end, desc = "Lazy Git (cwd)" },
 		},
 	},
 }

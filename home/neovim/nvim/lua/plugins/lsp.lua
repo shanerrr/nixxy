@@ -32,7 +32,7 @@ return {
 			-- C-n/C-p or Up/Down: Select next/previous item
 			-- C-e: Hide menu
 			-- C-k: Toggle signature help (if signature.enabled = true)
-			keymap = { preset = "default", ["<tab>"] = { "accept", "fallback" }, ["<C><leader>"] = { "show" } },
+			keymap = { preset = "default", ["<Tab>"] = { "accept", "fallback" } },
 			appearance = {
 				nerd_font_variant = "mono",
 			},
@@ -47,6 +47,5 @@ return {
 			-- See the fuzzy documentation for more information
 			fuzzy = { implementation = "prefer_rust_with_warning" },
 		},
-		opts_extend = { "sources.default" },
 	},
 }

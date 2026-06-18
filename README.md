@@ -23,6 +23,8 @@ A `.nix` file does nothing unless it's in an `imports` list up the chain.
 
 ## Fresh install on a new machine
 
+Follow this [guide](https://www.tonybtw.com/tutorial/nixos-from-scratch/)
+
 1. Boot the NixOS installer. Partition the disk (UEFI: ESP FAT32 + root), then mount:
 
        mount /dev/nvme0n1p2 /mnt
