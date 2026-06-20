@@ -64,7 +64,7 @@
     screenshot-path = "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png";
 
     spawn-at-startup = [
-    { command = [ "swaybg" "-i" "/home/shaner/Pictures/wallpaper.png" "-m" "fill" ]; }
+    { command = [ "swaybg" "-i" "${./wallpaper.png}" "-m" "fill" ]; }
     ];
 
     # Outputs (per host )
